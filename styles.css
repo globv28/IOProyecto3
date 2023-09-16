@@ -1,0 +1,103 @@
+window{
+    background: #f5f5f5;
+}
+
+#scrollEntry{
+    background: #f5f5f5;
+    color: #000000;
+}
+
+#top_label{
+    background-color: black;
+    color: white;
+    font-family: "Arial, sans-serif";
+    font-size: 15pt;
+}
+
+#title{
+    color: black;
+    font-family: "Arial, sans-serif";
+    font-size: 20px;
+}
+
+#seccion{
+	border-radius: 5px;
+	border: 2px solid #000000; /* Contorno de texto */
+}
+
+label#next_label{
+    color: black;
+}
+
+#smallButton{
+	text-decoration: none;
+	color: #fff;
+	background: #1e5799; /* Azul bonito un poco oscuro */
+	border: none;
+	border-radius: 15px;
+	font-family: "Arial, sans-serif";
+    padding: 5px 10px;
+    font-size: 12pt;
+}
+
+#smallButton:hover {
+    background: #2980b9;
+    color: white;
+}
+
+#smallButton:active {
+    background: #2070a0;
+}
+
+#menuButton {
+	padding: 10px 15px;
+ 	font-size: 20px;
+	text-decoration: none;
+	color: #fff;
+	background: #1e5799; /* Azul bonito un poco oscuro */
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0px 7px #999;
+	font-family: "Arial, sans-serif";
+}
+
+#menuButton:hover {
+    background: #2980b9;
+    color: white;
+}
+
+#menuButton:active {
+    background: #1e5799;
+    box-shadow: 0 5px #666;
+}
+
+
+
+#verde {
+    background: #26DE23; /* Fondo verde */
+    color: #ffffff; /* Texto blanco */
+    border: 1px solid #000000; /* Borde verde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-family: "Arial, sans-serif";
+    font-size: 16px; /* Tamaño del texto */
+    text-shadow: 2px 2px 2px #000000;
+    border: 2px solid #000000; /* Contorno de texto */
+}
+
+#rojo {
+    background: red;
+    color: #ffffff; /* Texto blanco */
+    border: 1px solid #000000; /* Borde verde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-family: "Arial, sans-serif";
+    font-size: 16px; /* Tamaño del texto */
+    text-shadow: 2px 2px 2px #000000;
+    border: 2px solid #000000; /* Contorno de texto */
+}
+
+#neutro{
+    background: #f5f5f5;
+    color: #000000;
+}
