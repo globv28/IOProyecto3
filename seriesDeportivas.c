@@ -40,7 +40,6 @@ int main(int argc, char *argv[]){
     load_css();
     
     window = GTK_WIDGET(gtk_builder_get_object(builder, "MyWindow")); //load window named MyWindow
-	siguiente = GTK_WIDGET(gtk_builder_get_object(builder, "next_button"));
 
     
     //ASIGN VARIABLES
