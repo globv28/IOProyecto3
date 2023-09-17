@@ -77,6 +77,36 @@ static void load_css(void){
     g_object_unref(provider);
 }
 
+//crea la tabla inicial para ingresar si los juegos seran en casa o no
+void createTable1(){
+    // Crear títulos para la primera fila
+    GtkWidget *labelTitulo1 = gtk_label_new("N. Juego");
+    GtkWidget *labelTitulo2 = gtk_label_new("En Casa (A)");
+
+    // Agregar títulos a la primera fila y centrarlos
+    gtk_widget_set_name(labelTitulo1, "neutro");
+    gtk_widget_set_name(labelTitulo2, "neutro");
+    gtk_widget_set_halign(labelTitulo1, GTK_ALIGN_CENTER);
+    gtk_widget_set_halign(labelTitulo2, GTK_ALIGN_CENTER);
+    gtk_grid_attach(GTK_GRID(gameLocation), labelTitulo1, 0, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(gameLocation), labelTitulo2, 1, 0, 1, 1);
+
+
+    for (int i = 0; i < games; i++) {
+        // Etiqueta con el número en la primera columna
+        GtkWidget *labelNumero = gtk_label_new(g_strdup_printf("%d", i+1));
+        gtk_widget_set_name(labelNumero, "neutro");
+        gtk_grid_attach(GTK_GRID(gameLocation), labelNumero, 0, i + 1, 1, 1);
+        gtk_widget_set_halign(labelNumero, GTK_ALIGN_CENTER);
+
+        // Checkbox en la segunda columna y centrado
+        GtkWidget *checkbox = gtk_check_button_new();
+        gtk_grid_attach(GTK_GRID(gameLocation), checkbox, 1, i + 1, 1, 1);
+        gtk_widget_set_halign(checkbox, GTK_ALIGN_CENTER);
+        
+    }
+}
+
 
 void cleanTable1(){
 	for (int i = 0; i < games + 1; i++) { //limpia la tabla que se va a ctualizando
@@ -92,12 +122,12 @@ void cleanTable2(){ //limpia la tabla del display de la respuesta final
 gboolean actualizarCantJuego( GtkWidget *widget, GdkEventButton *event, gpointer object )
 {
     button_clicked = TRUE;
-	/*cleanTable1();
-    cleanTable2();*/
+	cleanTable1();
+    /*cleanTable2();*/
     games = gtk_spin_button_get_value_as_int((GtkSpinButton*) cantJuegos);
     g_print("cantJuegos: %d\n", games);
-	/*createTable1();
-	createTable2();*/
+	createTable1();
+	/*createTable2();*/
     gtk_widget_show_all(window);
 
     return FALSE;
