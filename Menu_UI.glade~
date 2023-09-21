@@ -70,9 +70,7 @@
             <property name="app_paintable">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">En este algoritmo evaluamos la posibilidad de el equipo A de ganar un campeonato. Dos equipos compiten y solo puede haber un ganador, gana el mejor de X siendo X la cantidad total de juegos que se realizan.
- Ecuación de Bellman: Tabla[i][j] = p*tabla[i-1][j]* q*tabla[i][i-j]
-Se juegan un total de 2*k+1 partidos donde 'k' es cuantos partidos ocupa ganar para ser campeón. Existen otros factores, como la localidad del encuentro, ya que esto puede mejorar  las probabilidades de ganar del equipo en casa.</property>
+            <property name="tooltip_text" translatable="yes">Este algoritmo aún no está disponible</property>
             <property name="valign">center</property>
             <signal name="clicked" handler="tbd_button_clicked" swapped="no"/>
           </object>

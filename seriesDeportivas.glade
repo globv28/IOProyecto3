@@ -55,6 +55,7 @@
               <object class="GtkSpinButton" id="cant_juegos">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Indica la cantidad de juegos</property>
                 <property name="adjustment">range_games</property>
               </object>
               <packing>
@@ -83,6 +84,7 @@
               <object class="GtkSpinButton" id="home">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Indica la probabilidad de que A gane en casa</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">probability_range</property>
                 <property name="digits">2</property>
@@ -114,6 +116,7 @@
               <object class="GtkSpinButton" id="visit">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">Indica la probabilidad de que A gane de visita</property>
                 <property name="input_purpose">number</property>
                 <property name="adjustment">probability_range1</property>
                 <property name="digits">2</property>
@@ -310,22 +313,9 @@
                         </attributes>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
+                        <property name="expand">True</property>
                         <property name="fill">True</property>
                         <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="answer_button">
-                        <property name="label" translatable="yes">Ver Respuesta</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
                       </packing>
                     </child>
                   </object>
@@ -370,7 +360,7 @@
             <property name="homogeneous">True</property>
             <child>
               <object class="GtkButton" id="next_button">
-                <property name="label" translatable="yes">Siguiente</property>
+                <property name="label" translatable="yes">Obtener Respuesta</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

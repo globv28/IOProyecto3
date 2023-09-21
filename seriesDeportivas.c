@@ -118,7 +118,7 @@ void createTable1(){
         gtk_grid_attach(GTK_GRID(gameLocation), checkbox, 1, i + 1, 1, 1);
         gtk_widget_set_halign(checkbox, GTK_ALIGN_CENTER);
 
-        g_signal_connect(checkbox, "toggled", G_CALLBACK(actualizarLocalizacion), GINT_TO_POINTER(i));        
+        g_signal_connect(checkbox, "toggled", G_CALLBACK(actualizarLocalizacion), GINT_TO_POINTER(i+1));        
     }
 }
 
@@ -197,7 +197,7 @@ void actualizarTablaRespuesta() {
         double arriba = strtod(textoLabelArriba, NULL);
         double izquierda = strtod(textoLabelIzquierda, NULL);
 
-        int juegoNum = (mejorDe-i)+(mejorDe-j) + 1;
+        int juegoNum = (mejorDe-i)+(mejorDe-j)+1;
 
         int esEnCasa = juegoEnCasa[juegoNum];
         float probabilidadGanar;
@@ -206,22 +206,36 @@ void actualizarTablaRespuesta() {
             if (esEnCasa == 1) {
                 // El juego es en casa   
                 probabilidadGanar = probGanarCasa * arriba + probPerderCasa * izquierda;
+                // Create a new label with the updated probability and replace the existing label
+                GtkWidget *temp = gtk_label_new(g_strdup_printf(" %f CASA", probabilidadGanar));
+                gtk_widget_set_name(temp, "neutro");
+
+                // Remove the existing label from the grid
+                GtkWidget *existingLabel = gtk_grid_get_child_at(probabilidades, j+1, i+1);
+                gtk_container_remove(GTK_CONTAINER(probabilidades), existingLabel);
+                
+                gtk_grid_attach(GTK_GRID(probabilidades), temp, j+1, i+1, 1, 1);
+                gtk_widget_set_halign(temp, GTK_ALIGN_CENTER);
+                gtk_widget_show(temp);  // Show the newly created label
             } else if (esEnCasa == 0) {
                 // El juego es de visita y se usan las probabilidades de visita
+                
                 probabilidadGanar = probGanarVisita * arriba + probPerderVisita * izquierda;
+
+                // Create a new label with the updated probability and replace the existing label
+                GtkWidget *temp = gtk_label_new(g_strdup_printf(" %f VISITA", probabilidadGanar));
+                gtk_widget_set_name(temp, "neutro");
+
+                // Remove the existing label from the grid
+                GtkWidget *existingLabel = gtk_grid_get_child_at(probabilidades, j+1, i+1);
+                gtk_container_remove(GTK_CONTAINER(probabilidades), existingLabel);
+                
+                gtk_grid_attach(GTK_GRID(probabilidades), temp, j+1, i+1, 1, 1);
+                gtk_widget_set_halign(temp, GTK_ALIGN_CENTER);
+                gtk_widget_show(temp);  // Show the newly created label
             }
 
-            // Create a new label with the updated probability and replace the existing label
-            GtkWidget *temp = gtk_label_new(g_strdup_printf(" %f ", probabilidadGanar));
-            gtk_widget_set_name(temp, "neutro");
 
-            // Remove the existing label from the grid
-            GtkWidget *existingLabel = gtk_grid_get_child_at(probabilidades, j+1, i+1);
-            gtk_container_remove(GTK_CONTAINER(probabilidades), existingLabel);
-
-            gtk_grid_attach(GTK_GRID(probabilidades), temp, j+1, i+1, 1, 1);
-            gtk_widget_set_halign(temp, GTK_ALIGN_CENTER);
-            gtk_widget_show(temp);  // Show the newly created label
 
         g_print("Juego %d es en casa: %d arriba: %f  izquierda %f i: %d j: %d\n", juegoNum, esEnCasa, arriba, izquierda, i+1, j);
         }
@@ -283,6 +297,8 @@ int main(int argc, char *argv[]){
     load_css();
     //ventana
     window = GTK_WIDGET(gtk_builder_get_object(builder, "MyWindow")); //load window named MyWindow
+    gtk_window_set_default_size(GTK_WINDOW(window), 800, 500);
+
 
     //botones
     cantJuegos = GTK_WIDGET(gtk_builder_get_object(builder, "cant_juegos")); 
