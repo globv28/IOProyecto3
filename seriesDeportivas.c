@@ -181,36 +181,49 @@ void cleanTable2(){ //limpia la tabla del display de la respuesta final
 }
 
 void actualizarTablaRespuesta() {
+    //Ecuación de Bellman: Tabla[i][j] = p*tabla[i-1][j]* q*tabla[i][i-j]
     // Implementa la lógica para trabajar con checkbox e índices aquí
-    for (int i = 1; i < mejorDe+1; i++) {
-        for(int j = 1; j < mejorDe+1; j++){
-            char *endptr;
-            char *endptr1;
+    for (int i = 1; i < mejorDe + 1; i++) {
+        for(int j = 1; j < mejorDe + 1; j++){
         // Accede a la variable juegoEnCasa para saber si el juego i es en casa o no
-        GtkWidget *widgetArriba = gtk_grid_get_child_at(probabilidades, i, j-1);
+        GtkWidget *widgetArriba = gtk_grid_get_child_at(probabilidades, j+1,i);
         GtkLabel *labelArriba = GTK_LABEL(widgetArriba);
         const gchar *textoLabelArriba = gtk_label_get_text(labelArriba);    
-        double arriba = strtod(textoLabelArriba, endptr); 
 
-        GtkWidget *widgetIzquierda = gtk_grid_get_child_at(probabilidades, i-1, j);
+        GtkWidget *widgetIzquierda = gtk_grid_get_child_at(probabilidades, j,i+1);
         GtkLabel *labelIzquierda = GTK_LABEL(widgetIzquierda);
         const gchar *textoLabelIzquierda = gtk_label_get_text(labelIzquierda); 
-        double izquierda = strtod(textoLabelIzquierda, endptr1); 
 
-        int esEnCasa = juegoEnCasa[i];
+        double arriba = strtod(textoLabelArriba, NULL);
+        double izquierda = strtod(textoLabelIzquierda, NULL);
+
+        int juegoNum = (mejorDe-i)+(mejorDe-j) + 1;
+
+        int esEnCasa = juegoEnCasa[juegoNum];
         float probabilidadGanar;
 
 
-        if(esEnCasa == 1){
-            //el juego es en casa   
-            probabilidadGanar = probGanarCasa*arriba + probPerderCasa*izquierda;
+            if (esEnCasa == 1) {
+                // El juego es en casa   
+                probabilidadGanar = probGanarCasa * arriba + probPerderCasa * izquierda;
+            } else if (esEnCasa == 0) {
+                // El juego es de visita y se usan las probabilidades de visita
+                probabilidadGanar = probGanarVisita * arriba + probPerderVisita * izquierda;
+            }
 
-        } else{
-            //el juego es de visita y se usan las probabilidades de visita
-            probabilidadGanar = probGanarVisita*arriba + probPerderVisita*izquierda;
-        }
+            // Create a new label with the updated probability and replace the existing label
+            GtkWidget *temp = gtk_label_new(g_strdup_printf(" %f ", probabilidadGanar));
+            gtk_widget_set_name(temp, "neutro");
 
-        g_print("Juego %d es en casa: %d\n", i + 1, esEnCasa);
+            // Remove the existing label from the grid
+            GtkWidget *existingLabel = gtk_grid_get_child_at(probabilidades, j+1, i+1);
+            gtk_container_remove(GTK_CONTAINER(probabilidades), existingLabel);
+
+            gtk_grid_attach(GTK_GRID(probabilidades), temp, j+1, i+1, 1, 1);
+            gtk_widget_set_halign(temp, GTK_ALIGN_CENTER);
+            gtk_widget_show(temp);  // Show the newly created label
+
+        g_print("Juego %d es en casa: %d arriba: %f  izquierda %f i: %d j: %d\n", juegoNum, esEnCasa, arriba, izquierda, i+1, j);
         }
     }
 }

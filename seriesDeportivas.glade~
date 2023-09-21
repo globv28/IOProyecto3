@@ -41,6 +41,7 @@
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Cantidad de juegos</property>
                 <attributes>
+                  <attribute name="weight" value="medium"/>
                   <attribute name="foreground" value="#000000000000"/>
                 </attributes>
               </object>
@@ -68,6 +69,7 @@
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">P.Ganar en casa (A)</property>
                 <attributes>
+                  <attribute name="weight" value="medium"/>
                   <attribute name="foreground" value="#000000000000"/>
                 </attributes>
               </object>
@@ -98,6 +100,7 @@
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">P.Ganar de Visita (A)</property>
                 <attributes>
+                  <attribute name="weight" value="medium"/>
                   <attribute name="foreground" value="#000000000000"/>
                 </attributes>
               </object>
@@ -158,6 +161,7 @@
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">N. Juego</property>
                             <attributes>
+                              <attribute name="weight" value="medium"/>
                               <attribute name="foreground" value="#000000000000"/>
                             </attributes>
                           </object>
@@ -172,6 +176,7 @@
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">En casa (A)</property>
                             <attributes>
+                              <attribute name="weight" value="medium"/>
                               <attribute name="foreground" value="#000000000000"/>
                             </attributes>
                           </object>
@@ -208,6 +213,10 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Juegos</property>
+                            <attributes>
+                              <attribute name="weight" value="medium"/>
+                              <attribute name="foreground" value="#000000000000"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -259,6 +268,7 @@
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Información</property>
                     <attributes>
+                      <attribute name="weight" value="medium"/>
                       <attribute name="foreground" value="#000000000000"/>
                     </attributes>
                   </object>
@@ -282,6 +292,9 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">label</property>
+                            <attributes>
+                              <attribute name="foreground" value="#000000000000"/>
+                            </attributes>
                           </object>
                         </child>
                       </object>
@@ -314,6 +327,7 @@
                         <property name="can_focus">False</property>
                         <property name="label" translatable="yes">Respuesta</property>
                         <attributes>
+                          <attribute name="weight" value="medium"/>
                           <attribute name="foreground" value="#000000000000"/>
                         </attributes>
                       </object>
@@ -348,6 +362,9 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">label</property>
+                    <attributes>
+                      <attribute name="foreground" value="#000000000000"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="expand">False</property>
