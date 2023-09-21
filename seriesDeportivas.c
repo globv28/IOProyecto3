@@ -16,6 +16,7 @@ GtkWidget* window;
 GtkWidget* cantJuegos;
 GtkWidget* GanarCasa;
 GtkWidget* GanarVisita;
+GtkWidget* siguiente;
 
 GtkGrid* gameLocation;
 GtkGrid* probabilidades;
@@ -43,7 +44,7 @@ const int juegos[] = {
     46, 47, 48, 49, 50, 51
 };
 
-const int juegoEnCasa[] = { //0 = falso, no es juego en casa de a, 1 = verdadero, juegan en casa de A
+int juegoEnCasa[] = { //0 = falso, no es juego en casa de a, 1 = verdadero, juegan en casa de A
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0,
@@ -77,6 +78,18 @@ static void load_css(void){
     g_object_unref(provider);
 }
 
+void actualizarLocalizacion(GtkToggleButton *checkbox, int juego) {
+    gboolean active = gtk_toggle_button_get_active(checkbox);
+    
+    // Actualiza la matriz juegoEnCasa en la posición correspondiente
+    if (active) {
+        juegoEnCasa[juego] = 1;
+    } else {
+        juegoEnCasa[juego] = 0;
+    }
+}
+
+
 //crea la tabla inicial para ingresar si los juegos seran en casa o no
 void createTable1(){
     // Crear títulos para la primera fila
@@ -103,7 +116,8 @@ void createTable1(){
         GtkWidget *checkbox = gtk_check_button_new();
         gtk_grid_attach(GTK_GRID(gameLocation), checkbox, 1, i + 1, 1, 1);
         gtk_widget_set_halign(checkbox, GTK_ALIGN_CENTER);
-        
+
+        g_signal_connect(checkbox, "toggled", G_CALLBACK(actualizarLocalizacion), GINT_TO_POINTER(i));        
     }
 }
 
@@ -119,15 +133,25 @@ void cleanTable2(){ //limpia la tabla del display de la respuesta final
     }
 }
 
+void actualizarTablaRespuesta() {
+    // Implementa la lógica para trabajar con checkbox e índices aquí
+    for (int i = 0; i < games; i++) {
+        // Accede a la variable juegoEnCasa para saber si el juego i es en casa o no
+        int esEnCasa = juegoEnCasa[i];
+
+        g_print("Juego %d es en casa: %d\n", i + 1, esEnCasa);
+    }
+}
+
 gboolean actualizarCantJuego( GtkWidget *widget, GdkEventButton *event, gpointer object )
 {
     button_clicked = TRUE;
 	cleanTable1();
-    /*cleanTable2();*/
+    //cleanTable2();
     games = gtk_spin_button_get_value_as_int((GtkSpinButton*) cantJuegos);
     g_print("cantJuegos: %d\n", games);
 	createTable1();
-	/*createTable2();*/
+	//createTable2();
     gtk_widget_show_all(window);
 
     return FALSE;
@@ -179,10 +203,13 @@ int main(int argc, char *argv[]){
     cantJuegos = GTK_WIDGET(gtk_builder_get_object(builder, "cant_juegos")); 
 	GanarCasa = GTK_WIDGET(gtk_builder_get_object(builder, "home"));
     GanarVisita = GTK_WIDGET(gtk_builder_get_object(builder, "visit"));
+    siguiente = GTK_WIDGET(gtk_builder_get_object(builder, "next_button"));
+
+    
 
     //tablas
     gameLocation = GTK_GRID(gtk_builder_get_object(builder, "games_location"));
-    probabilidades = GTK_GRID(gtk_builder_get_object(builder, "games_location"));
+    probabilidades = GTK_GRID(gtk_builder_get_object(builder, "answer_table"));
     
     //ASIGN VARIABLES
     games = 3;
@@ -193,6 +220,7 @@ int main(int argc, char *argv[]){
     g_signal_connect( cantJuegos, "activate", G_CALLBACK(actualizarCantJuego), NULL );
     g_signal_connect( GanarCasa, "activate", G_CALLBACK(actualizarGanarCasa), NULL );
     g_signal_connect( GanarVisita, "activate", G_CALLBACK(actualizarGanarVisita), NULL );
+    g_signal_connect( siguiente, "clicked", G_CALLBACK(actualizarTablaRespuesta), NULL );
 
     gtk_builder_connect_signals(builder, NULL);
     
