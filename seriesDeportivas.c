@@ -28,6 +28,7 @@ float probPerderCasa;
 
 float probGanarVisita;
 float probPerderVisita;
+float mejorDe;
 
 
 //matrices de valores and shit
@@ -121,6 +122,52 @@ void createTable1(){
     }
 }
 
+void createTable2(){
+    mejorDe = games/2 + 1;
+    //crear etiquetas para las filas y las columnas
+    GtkWidget *labelTitulo1 = gtk_label_new(" P.A "); //probabilidad de que gane a en x momento
+    gtk_widget_set_name(labelTitulo1, "neutro");
+    gtk_grid_attach(GTK_GRID(probabilidades), labelTitulo1, 0, 0, 1, 1);
+
+
+    for(int i = 0; i < mejorDe+1; i++){
+        GtkWidget *labelNumeroA = gtk_label_new(g_strdup_printf(" %d ", i));
+        GtkWidget *labelNumeroB = gtk_label_new(g_strdup_printf(" %d ", i));
+        gtk_widget_set_name(labelNumeroA, "neutro");
+        gtk_widget_set_name(labelNumeroB, "neutro");
+        gtk_grid_attach(GTK_GRID(probabilidades), labelNumeroA, 0, i + 1, 1, 1);
+        gtk_grid_attach(GTK_GRID(probabilidades), labelNumeroB, i+1, 0, 1, 1);
+        gtk_widget_set_halign(labelNumeroA, GTK_ALIGN_CENTER);
+        gtk_widget_set_halign(labelNumeroB, GTK_ALIGN_CENTER);
+    }
+
+    for (int i = 1; i <= mejorDe+1; i++) {
+        for (int j = 1; j <= mejorDe+1; j++) {
+            // Crear una etiqueta con el texto "n.c" y agregarla a la celda correspondiente
+            if(i == 1 && j ==1){
+                GtkWidget *temp = gtk_label_new(" G.O "); //TERMINO EL JUEGO
+                gtk_widget_set_name(temp, "neutro");
+                gtk_grid_attach(GTK_GRID(probabilidades), temp, i, j, 1, 1);
+                gtk_widget_set_halign(temp, GTK_ALIGN_CENTER);
+            } else if(i == 1){
+                GtkWidget *temp = gtk_label_new(g_strdup_printf(" %d ", i-1)); //TERMINO EL JUEGO
+                gtk_widget_set_name(temp, "neutro");
+                gtk_grid_attach(GTK_GRID(probabilidades), temp, i, j, 1, 1);
+                gtk_widget_set_halign(temp, GTK_ALIGN_CENTER);
+            } else if( j == 1){
+                GtkWidget *temp = gtk_label_new(g_strdup_printf(" %d ", 1)); //TERMINO EL JUEGO
+                gtk_widget_set_name(temp, "neutro");
+                gtk_grid_attach(GTK_GRID(probabilidades), temp, i, j, 1, 1);
+                gtk_widget_set_halign(temp, GTK_ALIGN_CENTER);
+            } else{
+                GtkWidget *temp = gtk_label_new(" n.c ");
+                gtk_widget_set_name(temp, "neutro");
+                gtk_grid_attach(GTK_GRID(probabilidades), temp, i, j, 1, 1);
+                gtk_widget_set_halign(temp, GTK_ALIGN_CENTER);
+            }
+        }
+    }
+}
 
 void cleanTable1(){
 	for (int i = 0; i < games + 1; i++) { //limpia la tabla que se va a ctualizando
@@ -135,11 +182,36 @@ void cleanTable2(){ //limpia la tabla del display de la respuesta final
 
 void actualizarTablaRespuesta() {
     // Implementa la lógica para trabajar con checkbox e índices aquí
-    for (int i = 0; i < games; i++) {
+    for (int i = 1; i < mejorDe+1; i++) {
+        for(int j = 1; j < mejorDe+1; j++){
+            char *endptr;
+            char *endptr1;
         // Accede a la variable juegoEnCasa para saber si el juego i es en casa o no
+        GtkWidget *widgetArriba = gtk_grid_get_child_at(probabilidades, i, j-1);
+        GtkLabel *labelArriba = GTK_LABEL(widgetArriba);
+        const gchar *textoLabelArriba = gtk_label_get_text(labelArriba);    
+        double arriba = strtod(textoLabelArriba, endptr); 
+
+        GtkWidget *widgetIzquierda = gtk_grid_get_child_at(probabilidades, i-1, j);
+        GtkLabel *labelIzquierda = GTK_LABEL(widgetIzquierda);
+        const gchar *textoLabelIzquierda = gtk_label_get_text(labelIzquierda); 
+        double izquierda = strtod(textoLabelIzquierda, endptr1); 
+
         int esEnCasa = juegoEnCasa[i];
+        float probabilidadGanar;
+
+
+        if(esEnCasa == 1){
+            //el juego es en casa   
+            probabilidadGanar = probGanarCasa*arriba + probPerderCasa*izquierda;
+
+        } else{
+            //el juego es de visita y se usan las probabilidades de visita
+            probabilidadGanar = probGanarVisita*arriba + probPerderVisita*izquierda;
+        }
 
         g_print("Juego %d es en casa: %d\n", i + 1, esEnCasa);
+        }
     }
 }
 
@@ -147,11 +219,11 @@ gboolean actualizarCantJuego( GtkWidget *widget, GdkEventButton *event, gpointer
 {
     button_clicked = TRUE;
 	cleanTable1();
-    //cleanTable2();
+    cleanTable2();
     games = gtk_spin_button_get_value_as_int((GtkSpinButton*) cantJuegos);
     g_print("cantJuegos: %d\n", games);
 	createTable1();
-	//createTable2();
+	createTable2();
     gtk_widget_show_all(window);
 
     return FALSE;
