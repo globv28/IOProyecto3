@@ -97,6 +97,42 @@ label#next_label{
     border: 2px solid #000000; /* Contorno de texto */
 }
 
+#naranja {
+    background: orange;
+    color: #ffffff; /* Texto blanco */
+    border: 1px solid #000000; /* Borde verde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-family: "Arial, sans-serif";
+    font-size: 16px; /* Tamaño del texto */
+    text-shadow: 2px 2px 2px #000000;
+    border: 2px solid #000000; /* Contorno de texto */
+}
+
+#azul {
+    background: blue;
+    color: #ffffff; /* Texto blanco */
+    border: 1px solid #000000; /* Borde verde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-family: "Arial, sans-serif";
+    font-size: 16px; /* Tamaño del texto */
+    text-shadow: 2px 2px 2px #000000;
+    border: 2px solid #000000; /* Contorno de texto */
+}
+
+#amarillo {
+    background:yellow;
+    color: #ffffff; /* Texto blanco */
+    border: 1px solid #000000; /* Borde verde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-family: "Arial, sans-serif";
+    font-size: 16px; /* Tamaño del texto */
+    text-shadow: 2px 2px 2px #000000;
+    border: 2px solid #000000; /* Contorno de texto */
+}
+
 #neutro{
     background: #f5f5f5;
     color: #000000;

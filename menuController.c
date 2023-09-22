@@ -112,6 +112,10 @@ void knapsack_button_clicked(){
     popen("./mochila","r");
 }
 
+void series_deportivas_clicked(){
+    popen("./seriesDeportivas","r");
+}
+
 void floyd_button_clicked(){
 	popen("./rutasMasCortas","r");
     //printf("Algoritmo de las rutas más cortas ejecutandose");
